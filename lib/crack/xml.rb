@@ -82,8 +82,11 @@ class REXMLUtilityNode #:nodoc:
 
     if @text
       t = typecast_value( unnormalize_xml_entities( inner_html ) )
-      t.class.send(:include, Crack::HasAttributes)
-      t.attributes = attributes
+      begin
+        t.extend(Crack::HasAttributes) 
+        t.attributes = attributes
+      rescue TypeError => e
+      end
       return { name => t }
     else
       #change repeating groups into an array
