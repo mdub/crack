@@ -102,9 +102,8 @@ class REXMLUtilityNode #:nodoc:
             out << v.map{|e| e.to_hash[k]}
           end
         end
+        out.flatten!
         out.attributes = attributes.reject { |k,v| k == "type" }
-
-        out = out.flatten
 
       else # If Hash
         out = {}
